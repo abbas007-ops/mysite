@@ -18,38 +18,18 @@ while (!feof($fp)) {
 }  
   
 fclose($fp);*/
-
-ignore_user_abort(true);
-set_time_limit(0); // disable the time limit for this script
-
- // change the path to fit your websites document structure
-
-$dl_file = preg_replace("([^\w\s\d\-_~,;:\[\]\(\).]|[\.]{2,})", '', $_GET['file']); // simple file name validation
-$dl_file = filter_var($dl_file, FILTER_SANITIZE_URL); // Remove (more) invalid characters
-$fullPath = $dl_file;
-
-if ($fd = fopen ($fullPath, "r")) {
-    $fsize = filesize($fullPath);
-    $path_parts = pathinfo($fullPath);
-    $ext = strtolower($path_parts["extension"]);
-    switch ($ext) {
-        case "pdf":
-        header("Content-type: application/pdf");
-        header("Content-Disposition: attachment; filename=\"".$path_parts["basename"]."\""); // use 'attachment' to force a file download
-        break;
-        // add more headers for other content types here
-        default;
-        header("Content-type: application/octet-stream");
-        header("Content-Disposition: filename=\"".$path_parts["basename"]."\"");
-        break;
-    }
-    header("Content-length: $fsize");
-    header("Cache-control: private"); //use this to open files directly
-    while(!feof($fd)) {
-        $buffer = fread($fd, 2048);
-        echo $buffer;
-    }
-}
-fclose ($fd);
-exit;  
+$url = "https://abbas007-ops.github.io/mysite/Abbas'sResume(2).pdf"; 
+  
+// Use basename() function to return the base name of file  
+$file_name = basename($url); 
+   
+// Use file_get_contents() function to get the file 
+// from url and use file_put_contents() function to 
+// save the file by using base name 
+if(file_put_contents( $file_name,file_get_contents($url))) { 
+    echo "File downloaded successfully"; 
+} 
+else { 
+    echo "File downloading failed."; 
+}  
 ?> 

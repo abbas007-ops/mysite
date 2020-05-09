@@ -1,6 +1,6 @@
 <?php 
   
-header("Content-Type: application/octet-stream"); 
+/*header("Content-Type: application/octet-stream"); 
   
 $file = $_GET["file"]  . ".pdf"; 
   
@@ -17,5 +17,11 @@ while (!feof($fp)) {
     flush(); // This is essential for large downloads 
 }  
   
-fclose($fp);  
+fclose($fp);*/
+
+$file_url = "https://abbas007-ops.github.io/mysite/Abbas'sResume(2).pdf";
+header('Content-Type: application/octet-stream');
+header("Content-Transfer-Encoding: Binary"); 
+header("Content-disposition: attachment; filename=\"" . basename($file_url) . "\""); 
+readfile($file_url);   
 ?> 
